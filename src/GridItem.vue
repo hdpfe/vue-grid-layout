@@ -1,11 +1,11 @@
 <template>
     <div ref="item"
              class="vue-grid-item"
-             :class="{ 'vue-resizable' : isResizable, 'resizing' : isResizing, 'vue-draggable-dragging' : isDragging, 'cssTransforms' : useCssTransforms }"
+             :class="{ 'vue-resizable' : isItemResizable, 'resizing' : isResizing, 'vue-draggable-dragging' : isDragging, 'cssTransforms' : useCssTransforms }"
              :style="style"
         >
         <slot></slot>
-        <span v-if="isResizable" ref="handle" :class="resizableHandleClass"></span>
+        <span v-if="isItemResizable" ref="handle" :class="resizableHandleClass"></span>
     </div>
 </template>
 <style>
@@ -166,6 +166,8 @@
                 maxRows: Infinity,
 //                isDraggable: null,
 //                isResizable: null,
+               isItemDraggable: null,
+               isItemResizable: null,
                 useCssTransforms: true,
 
                 isDragging: false,
@@ -201,11 +203,12 @@
             };
 
             self.setDraggableHandler = function(isDraggable) {
-                self.isDraggable = isDraggable;
+                // self.isDraggable = isDraggable;
+                self.isItemDraggable = isDraggable;
             };
 
             self.setResizableHandler = function(isResizable) {
-                self.isResizable = isResizable;
+                self.isItemResizable = isResizable;
             };
 
             self.setRowHeightHandler = function(rowHeight) {
@@ -250,18 +253,19 @@
             this.containerWidth = this.$parent.width !== null ? this.$parent.width : 100;
             this.margin = this.$parent.margin !== undefined ? this.$parent.margin : [10, 10];
             this.maxRows = this.$parent.maxRows;
-            this.isDraggable = this.$parent.isDraggable;
-            this.isResizable = this.$parent.isResizable;
+            this.isItemDraggable = this.isDraggable || this.$parent.isDraggable;
+            this.isItemResizable = this.isResizable || this.$parent.isResizable;
             this.useCssTransforms = this.$parent.useCssTransforms;
             this.createStyle();
         },
         watch: {
-            isDraggable: function() {
+            // isDraggable: function() {
+            isItemDraggable: function() {
                 var self = this;
                 if (this.interactObj == null) {
                     this.interactObj = interact(this.$refs.item, {ignoreFrom: "a, button"});
                 }
-                if (this.isDraggable) {
+                if (this.isItemDraggable) {
                     this.interactObj.draggable({});
                     if (!this.dragEventSet) {
                         this.dragEventSet = true;
@@ -275,12 +279,12 @@
                         });
                 }
             },
-            isResizable: function() {
+            isItemResizable: function() {
                 var self = this;
                 if (this.interactObj == null) {
                     this.interactObj = interact(this.$refs.item, {ignoreFrom: "a, button"});
                 }
-                if (this.isResizable) {
+                if (this.isItemResizable) {
                     this.interactObj
                         .resizable({
                             preserveAspectRatio: false,
