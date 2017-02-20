@@ -263,10 +263,10 @@
             isItemDraggable: function() {
                 var self = this;
                 if (this.interactObj == null) {
-                    this.interactObj = interact(this.$refs.item, {ignoreFrom: "a, button"});
+                    this.interactObj = interact(this.$refs.item, {ignoreFrom: "a, button, .ds-drag-disable"});
                 }
                 if (this.isItemDraggable) {
-                    this.interactObj.draggable({});
+                    this.interactObj.draggable({})
                     if (!this.dragEventSet) {
                         this.dragEventSet = true;
                         this.interactObj.on('dragstart dragmove dragend', function (event) {
