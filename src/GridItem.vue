@@ -239,6 +239,8 @@
             this.rtl = (direction == "rtl");
         },
         beforeDestroy: function(){
+            var self = this;
+            
             //Remove listeners
             eventBus.$off('updateWidth', self.updateWidthHandler);
             eventBus.$off('compact', self.compactHandler);

@@ -104,15 +104,16 @@
             eventBus.$on('dragEvent', self.dragEventHandler);
         },
         beforeDestroy: function(){
+            var self = this;
             //Remove listeners
             eventBus.$off('resizeEvent', self.resizeEventHandler);
             eventBus.$off('dragEvent', self.dragEventHandler);
             window.removeEventListener("resize", self.onWindowResize)
         },
         mounted: function() {
+            var self = this;
             this.$nextTick(function () {
                 validateLayout(this.layout);
-                var self = this;
                 this.$nextTick(function() {
                     if (self.width === null) {
                         self.onWindowResize();
