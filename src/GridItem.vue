@@ -456,9 +456,9 @@
             },
             handleDrag(event) {
                 if (this.isResizing) return;
-
+                
                 const position = getControlPosition(event);
-
+                
                 // Get the current drag point from the event. This is used as the offset.
                 if (position == null) return; // not possible but satisfies flow
                 const {x, y} = position;
@@ -507,9 +507,9 @@
                             newPosition.left = this.dragging.left + coreEvent.deltaX;
                         }
                         newPosition.top = this.dragging.top + coreEvent.deltaY;
-//                        console.log("### drag => " + event.type + ", x=" + x + ", y=" + y);
-//                        console.log("### drag => " + event.type + ", deltaX=" + coreEvent.deltaX + ", deltaY=" + coreEvent.deltaY);
-//                        console.log("### drag end => " + JSON.stringify(newPosition));
+                    //    console.log("### drag => " + event.type + ", x=" + x + ", y=" + y);
+                    //    console.log("### drag => " + event.type + ", deltaX=" + coreEvent.deltaX + ", deltaY=" + coreEvent.deltaY);
+                    //    console.log("### drag end => " + JSON.stringify(newPosition));
                         this.dragging = newPosition;
                         break;
                 }
